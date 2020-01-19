@@ -1,0 +1,39 @@
+body {
+    background: radial-gradient(#e5e5e5, #ffffff, #e5e5e5);
+}
+
+.card {
+    alignment: center;
+    display: block;
+}
+
+.card:hover {
+    box-shadow: 5px 10px 10px 1px rgb(129, 129, 129) !important;
+    transition: box-shadow 0.5s ease;
+}
+
+.card-body {
+    padding: 3rem 0 !important;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    padding: 0.4rem 1.9rem;
+}
+
+.container-fluid {
+    padding-top: 6rem;
+}
+
+
+.overflow {
+    overflow: hidden;
+}
+.card-img-top {
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+
+.card-img-top:hover {
+    transform: scale(1.8);
+}
