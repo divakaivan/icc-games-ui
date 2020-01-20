@@ -49,7 +49,7 @@ const App = () => {
                             <TeamGames/>
                         </Route>
                         <Route path="/:gameId" exact>
-                            <ViewGame/>s
+                            <ViewGame/>
                         </Route>
                         <Redirect to="/"/>
                     </Switch>

@@ -27,9 +27,6 @@ const gamesList = [
 ];
 
 const Card = props => {
-    const gameId = useParams().gameId;
-    const game = gamesList.find(game => game.id === gameId);
-    console.log(gameId);
     return (
         <div className="mx-auto mb-5 card w-75 text-center shadow">
             <div className="overflow">
