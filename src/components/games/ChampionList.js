@@ -4,11 +4,18 @@ import Champion from "./Champion";
 const ChampionList = props => {
     return (
         <div>
-            {props.champions.map(champ =>
+            {props.side === "left" ? props.champions.map(champ =>
                 <Champion
+                    side="left"
                     champion={champ.name}
                 />
-            )}
+            ) : props.champions.map(champ =>
+                <Champion
+                    side="right"
+                    champion={champ.name}
+                />
+            )
+            }
         </div>
     )
 };
