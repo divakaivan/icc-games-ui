@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {useParams} from "react-router";
 import "../../stylesheets/ViewGame.css";
 import YouTube from "react-youtube-embed";
 import ChampionList from "./ChampionList";
+import {Button, Modal} from "react-bootstrap";
 
 const gamesList = [
     {
@@ -55,6 +56,7 @@ const ViewGame = props => {
     const gameId = useParams().gameId;
     const game = gamesList.find(game => game.id === gameId);
     const videoId = game.videoUrl.split("watch?v=")[1];
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <React.Fragment>
@@ -89,7 +91,28 @@ const ViewGame = props => {
                         }}>RED SIDE</p>
                     </div>
                 </div>
-
+                <div className="row">
+                    <div className="col-md-6 ml-5 mt-5">
+                        <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>
+                        <Modal animation={true} show={showModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Modal heading</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                Blue side:
+                                <input type="text" value={champs.map(champ=>champ.name)}/>
+                                <br/>
+                                Red side:
+                                <input type="text" value={champs.map(champ=>champ.name)}/>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                    Close
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     )
