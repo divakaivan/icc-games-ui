@@ -8,6 +8,8 @@ const NewGame = () => {
     const [champion, setChampion] = useState("");
     const [championsList, setChampionsList] = useState([]);
     const [invalidChampion, setInvalidChampion] = useState(false);
+    const [urlLink, setUrlLink] = useState("");
+    const [ableToSubmit, setAbleToSubmit] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -16,6 +18,13 @@ const NewGame = () => {
         } else {
             setInvalidChampion(true);
         }
+    };
+
+    const addGameChecker = e => {
+        e.preventDefault();
+        if (urlLink && championsList.length === 10) {
+            setAbleToSubmit(true);
+            console.log({champions: championsList, url: urlLink})}
     };
 
     return (
@@ -47,7 +56,12 @@ const NewGame = () => {
                     <h5>Input champions (left side from top to bottom then right side)</h5>
                     <input type="text" className="input-champ" value={champion} onChange={e=>setChampion(e.target.value)}/>
                     <br/>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>Add champion</Button>
+                    <br/><br/>
+                    <h5>YouTube link to the game</h5>
+                    <input type="text" className="input-champ" value={urlLink} onChange={e=>setUrlLink(e.target.value)}/>
+                    <br/>
+                    <Button variant="primary" disabled={ableToSubmit} type="submit" onClick={addGameChecker}>Submit champions and video URL</Button>
                 </div>
                 <div className="col-md-2">
                     {championsList[5] ? <ChampionPicked champion={championsList[5]}/> : (<h3>Top lane<br/></h3>)}
