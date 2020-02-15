@@ -5,27 +5,24 @@ import NewGame from "./components/games/NewGame";
 import Cards from "./components/cards/Cards";
 import TeamGames from "./components/games/TeamGames";
 import ViewGame from "./components/games/ViewGame";
+import LoadingSpinner from "./components/shared/LoadingSpinner";
+import {useHttpClient} from "./components/hooks/http-hook";
 
 const App = () => {
     const [gameList, setGameList] = useState();
-
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
     useEffect(()=>{
-        const sendRequest = async () => {
+        const fetchGames = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/games/');
-
-                const responseData = await response.json();
-                if (!response.ok) {
-                    throw new Error(responseData.message);
-                }
+                const responseData = await sendRequest('http://localhost:5000/api/games/');
 
                 setGameList(responseData.games);
             } catch (err) {
-                console.log(err.message);
+                alert(error);
             }
         };
-        sendRequest();
-    }, []);
+        fetchGames();
+    }, [sendRequest]);
 
     return (
             <Router>
@@ -33,7 +30,12 @@ const App = () => {
                 <main>
                     <Switch>
                         <Route path="/" exact>
-                            {gameList && <Cards games={gameList}/>}
+                            {isLoading && (
+                                <div className="text-center mt-5">
+                                    <LoadingSpinner/>
+                                </div>
+                            )}
+                            {!isLoading && gameList && <Cards games={gameList}/>}
                         </Route>
                         <Route path="/new" exact>
                             <NewGame/>

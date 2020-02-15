@@ -22,7 +22,7 @@ const TeamGames = props => {
             }
         };
         sendRequest();
-    }, []);
+    }, [teamId]);
 
     const loadedGames = gameList && gameList.filter(game => game.red === teamId || game.blue === teamId);
     return (

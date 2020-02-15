@@ -6,7 +6,7 @@ const Card = props => {
     return (
         <div className="mx-auto mb-5 card w-75 text-center shadow">
             <div className="overflow">
-                <img src="https://i.ebayimg.com/images/g/4l4AAOSwx3dbjPf1/s-l300.jpg" className="card-img-top" alt="random"/>
+                <img src="https://raw.githubusercontent.com/divakaivan/icc-games-ui/9c54ec768829bfd2f65949d2ae023e990731ac12/src/components/cards/this-is-lec.jpg" className="card-img-top" alt="random"/>
             </div>
             <div className="card-body text-darker">
                 <h4 className="font-weight-bold card-title">

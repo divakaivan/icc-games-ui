@@ -3,30 +3,8 @@ import {useParams} from "react-router";
 import "../../stylesheets/ViewGame.css";
 import YouTube from "react-youtube-embed";
 import ChampionList from "./ChampionList";
+import {Button, Modal} from "react-bootstrap";
 
-
-const champs = [
-    {
-        name: "Aphelios",
-        img: "https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aphelios.png"
-    },
-    {
-        name: "Braum",
-        img: "https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aphelios.png"
-    },
-    {
-        name: "Ziggs",
-        img: "https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aphelios.png"
-    },
-    {
-        name: "Jax",
-        img: "https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aphelios.png"
-    },
-    {
-        name: "JarvanIV",
-        img: "https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/Aphelios.png"
-    }
-];
 
 const ViewGame = props => {
     const gameId = useParams().gameId;
@@ -51,10 +29,14 @@ const ViewGame = props => {
             }
         };
         sendRequest();
-    }, []);
+    }, [gameId]);
     const videoId = game && game.videoLink.split("watch?v=")[1];
     const blueChamps = game && game.champions.slice(0, 5);
-    const redChamps = game && game["champions"].slice(5, 10);
+    const redChamps = game && game.champions.slice(5, 10);
+
+    const handleDelete = () => {
+
+    };
 
     return (
         <React.Fragment>
@@ -89,47 +71,26 @@ const ViewGame = props => {
                         }}>RED SIDE</p>
                     </div>
                 </div>
-                {/*<div className="row">*/}
-                {/*    <div className="col-md-6 ml-5 mt-5">*/}
-                {/*        <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>*/}
-                {/*        <Modal animation={true} show={showModal}>*/}
-                {/*            <Modal.Header closeButton>*/}
-                {/*                <Modal.Title>Edit champion info</Modal.Title>*/}
-                {/*            </Modal.Header>*/}
-                {/*            <Modal.Body>*/}
-                {/*                Blue side:<br/>*/}
-                {/*                Top:<br/>*/}
-                {/*                <input type="text" value={champs[0]["name"]}/><br/>*/}
-                {/*                Jungle:<br/>*/}
-                {/*                <input type="text" value={champs[1]["name"]}/><br/>*/}
-                {/*                Mid:<br/>*/}
-                {/*                <input type="text" value={champs[2]["name"]}/><br/>*/}
-                {/*                Bot:<br/>*/}
-                {/*                <input type="text" value={champs[3]["name"]}/><br/>*/}
-                {/*                Support:<br/>*/}
-                {/*                <input type="text" value={champs[4]["name"]}/><br/>*/}
-                {/*                <br/>*/}
-                {/*                Red side:<br/>*/}
-                {/*                Top:<br/>*/}
-                {/*                <input type="text" value={champs[0]["name"]}/><br/>*/}
-                {/*                Jungle:<br/>*/}
-                {/*                <input type="text" value={champs[1]["name"]}/><br/>*/}
-                {/*                Mid:<br/>*/}
-                {/*                <input type="text" value={champs[2]["name"]}/><br/>*/}
-                {/*                Bot:<br/>*/}
-                {/*                <input type="text" value={champs[3]["name"]}/><br/>*/}
-                {/*                Support:<br/>*/}
-                {/*                <input type="text" value={champs[4]["name"]}/><br/>*/}
-                {/*            </Modal.Body>*/}
-                {/*            <Modal.Footer>*/}
-                {/*                <Button variant="primary" onClick={(e) => console.log(e)}>Submit</Button>*/}
-                {/*                <Button variant="secondary" onClick={() => setShowModal(false)}>*/}
-                {/*                    Close*/}
-                {/*                </Button>*/}
-                {/*            </Modal.Footer>*/}
-                {/*        </Modal>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className="row">
+                    <div className="col-md-6 ml-5 mt-5">
+                        <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>
+                        <Button variant="outline-primary" className="ml-3" onClick={handleDelete}>Delete game</Button>
+                        <Modal animation={true} show={showModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Edit champion info</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                Update game info
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="primary" onClick={(e) => console.log(e)}>Submit</Button>
+                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                    Close
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </div>
             </div>}
         </React.Fragment>
     )
