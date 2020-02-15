@@ -7,12 +7,12 @@ const ChampionList = props => {
             {props.side === "left" ? props.champions.map(champ =>
                 <Champion
                     side="left"
-                    champion={champ.name}
+                    champion={champ}
                 />
             ) : props.champions.map(champ =>
                 <Champion
                     side="right"
-                    champion={champ.name}
+                    champion={champ}
                 />
             )
             }

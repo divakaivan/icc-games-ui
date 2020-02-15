@@ -1,5 +1,4 @@
 import React from "react";
-import validChampions from "./CheckChampionValid";
 
 const ChampionPicked = props => {
     return (
