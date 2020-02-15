@@ -14,8 +14,7 @@ const Cards = props => {
                                     id={game.id}
                                     red={game.red}
                                     blue={game.blue}
-                                    duration={game.duration}
-                                    videoUrl={game.videoUrl}
+                                    videoLink={game.videoLink}
                                 />
                             </div>
                         )
