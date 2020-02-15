@@ -4,50 +4,57 @@ import "../../stylesheets/ViewGame.css";
 import YouTube from "react-youtube-embed";
 import ChampionList from "./ChampionList";
 import {Button, Modal} from "react-bootstrap";
-
+import LoadingSpinner from "../shared/LoadingSpinner";
+import {useHttpClient} from "../hooks/http-hook";
 
 const ViewGame = props => {
     const gameId = useParams().gameId;
+    const {sendRequest, error, isLoading} = useHttpClient();
 
     const [showModal, setShowModal] = useState(false);
     const [game, setGame] = useState();
+    const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
-        const sendRequest = async () => {
+        const fetchGame = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/games/${gameId}`);
-
-                const responseData = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(responseData.message);
-                }
+                const responseData = await sendRequest(`http://localhost:5000/api/games/${gameId}`);
 
                 setGame(responseData.game);
             } catch (err) {
-                console.log("Error: "+err.message);
+                alert(error);
             }
         };
-        sendRequest();
-    }, [gameId]);
+        fetchGame();
+    }, []);
     const videoId = game && game.videoLink.split("watch?v=")[1];
     const blueChamps = game && game.champions.slice(0, 5);
     const redChamps = game && game.champions.slice(5, 10);
 
-    const handleDelete = () => {
-
+    const handleDelete = async () => {
+        try {
+            await sendRequest(`http://localhost:5000/api/games/${gameId}`, 'DELETE')
+            setDeleteModal(true);
+        } catch (err) {
+            alert(error);
+        }
     };
 
     return (
         <React.Fragment>
-            {game && <div className="jumbotron view-game fluid align-content-center">
+            {isLoading && (
+                <div className="text-center mt-5">
+                    <LoadingSpinner/>
+                </div>
+            )}
+            {!isLoading && game && <div className="jumbotron view-game fluid align-content-center">
                 <div className="overlay">
                     <div className="container text-center mt-5">
                         <h1 className="blue">{game.blue}</h1> vs <h1 className="red">{game.red}</h1>
                     </div>
                 </div>
             </div>}
-            {blueChamps && redChamps && <div className="text-white container">
+            {!isLoading && blueChamps && redChamps && <div className="text-white container">
                 <div className="row">
                     <div className="my-auto align-middle col-md-1">
                         <p className="font-weight-bold text-primary ml-5" style={{
@@ -73,8 +80,22 @@ const ViewGame = props => {
                 </div>
                 <div className="row">
                     <div className="col-md-6 ml-5 mt-5">
+                        <Modal animation={true} show={deleteModal}>
+                            <Modal.Body>
+                                Game deleted successfully
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" href='http://localhost:3000/'>
+                                    Go to home
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6 ml-5 mt-5">
                         <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>
-                        <Button variant="outline-primary" className="ml-3" onClick={handleDelete}>Delete game</Button>
+                        <Button onClick={handleDelete} variant="primary ml-4">Delete game</Button>
                         <Modal animation={true} show={showModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Edit champion info</Modal.Title>
@@ -84,7 +105,7 @@ const ViewGame = props => {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="primary" onClick={(e) => console.log(e)}>Submit</Button>
-                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                <Button variant="primary" onClick={() => setShowModal(false)}>
                                     Close
                                 </Button>
                             </Modal.Footer>

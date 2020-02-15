@@ -1,33 +1,36 @@
 import React, {useState, useEffect} from "react";
 import {useParams} from 'react-router-dom';
 import Cards from "../cards/Cards";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import {useHttpClient} from "../hooks/http-hook";
 
 const TeamGames = props => {
     const teamId = useParams().teamId;
     const [gameList, setGameList] = useState();
+    const {isLoading, error, sendRequest} = useHttpClient();
 
     useEffect(() => {
-        const sendRequest = async () => {
+        const fetchGames = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/games/${teamId}/all`);
-
-                const responseData = await response.json();
-                if (!response.ok) {
-                    throw new Error(responseData.message);
-                }
+                const responseData = await sendRequest(`http://localhost:5000/api/games/${teamId}/all`);
 
                 setGameList(responseData.games);
             } catch (err) {
-                console.log(err.message);
+                alert(error);
             }
         };
-        sendRequest();
-    }, [teamId]);
+        fetchGames();
+    }, [error, sendRequest, teamId]);
 
     const loadedGames = gameList && gameList.filter(game => game.red === teamId || game.blue === teamId);
     return (
         <React.Fragment>
-            {loadedGames && <Cards games={loadedGames}/>}
+            {isLoading && (
+                <div className="text-center mt-5">
+                    <LoadingSpinner/>
+                </div>
+            )}
+            {!isLoading && loadedGames && <Cards games={loadedGames}/>}
         </React.Fragment>
     )
 };

@@ -10,7 +10,7 @@ import {useHttpClient} from "./components/hooks/http-hook";
 
 const App = () => {
     const [gameList, setGameList] = useState();
-    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const {isLoading, error, sendRequest} = useHttpClient();
     useEffect(()=>{
         const fetchGames = async () => {
             try {
