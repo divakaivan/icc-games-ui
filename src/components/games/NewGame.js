@@ -10,6 +10,8 @@ const NewGame = () => {
     const [invalidChampion, setInvalidChampion] = useState(false);
     const [urlLink, setUrlLink] = useState("");
     const [ableToSubmit, setAbleToSubmit] = useState(false);
+    const [blueTeam, setBlueTeam] = useState('');
+    const [redTeam, setRedTeam] = useState('');
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -22,9 +24,21 @@ const NewGame = () => {
 
     const addGameChecker = e => {
         e.preventDefault();
-        if (urlLink && championsList.length === 10) {
+        if (urlLink && redTeam && blueTeam && championsList.length === 10) {
             setAbleToSubmit(true);
-            console.log({champions: championsList, url: urlLink})}
+            fetch('http://localhost:5000/api/games/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    red: redTeam,
+                    blue: blueTeam,
+                    champions: championsList,
+                    videoLink: urlLink
+                })
+            }).then(
+                alert('Game added successfully!')
+            )
+        }
     };
 
     return (
@@ -61,7 +75,13 @@ const NewGame = () => {
                     <h5>YouTube link to the game</h5>
                     <input type="text" className="input-champ" value={urlLink} onChange={e=>setUrlLink(e.target.value)}/>
                     <br/>
-                    <Button variant="primary" disabled={ableToSubmit} type="submit" onClick={addGameChecker}>Submit champions and video URL</Button>
+                    <h5>Blue side team</h5>
+                    <input type="text" className='input-champ' value={blueTeam} onChange={e=>setBlueTeam(e.target.value)}/>
+                    <br/>
+                    <h5>Red side team</h5>
+                    <input type="text" className='input-champ' value={redTeam} onChange={e=>setRedTeam(e.target.value)}/>
+                    <br/>
+                    <Button variant="primary" disabled={ableToSubmit} type="submit" onClick={addGameChecker}>Submit all information</Button>
                 </div>
                 <div className="col-md-2">
                     {championsList[5] ? <ChampionPicked champion={championsList[5]}/> : (<h3>Top lane<br/></h3>)}

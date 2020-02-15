@@ -1,38 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import NavBar from "./components/shared/NavBar";
 import NewGame from "./components/games/NewGame";
-import GamesList from "./components/games/GamesLIst";
 import Cards from "./components/cards/Cards";
 import TeamGames from "./components/games/TeamGames";
 import ViewGame from "./components/games/ViewGame";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-const gamesList = [
-    {
-        id: 1,
-        red: "FNC",
-        blue: "G2",
-        duration: 32,
-        videoUrl: "https://www.youtube.com/watch?v=ZyO75QKzB-0"
-    },
-    {
-        id: 2,
-        red: "MSF",
-        blue: "G2",
-        duration: 24,
-        videoUrl: "https://www.youtube.com/watch?v=ZyO75QKzB-0"
-    },
-    {
-        id: 3,
-        red: "RGE",
-        blue: "VIT",
-        duration: 36,
-        videoUrl: "https://www.youtube.com/watch?v=ZyO75QKzB-0"
-    }
-];
 
 const App = () => {
+    const [gameList, setGameList] = useState();
+
+    useEffect(()=>{
+        const sendRequest = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/games/');
+
+                const responseData = await response.json();
+                if (!response.ok) {
+                    throw new Error(responseData.message);
+                }
+
+                setGameList(responseData.games);
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+        sendRequest();
+    }, []);
 
     return (
             <Router>
@@ -40,7 +33,7 @@ const App = () => {
                 <main>
                     <Switch>
                         <Route path="/" exact>
-                            <Cards games={gamesList}/>
+                            {gameList && <Cards games={gameList}/>}
                         </Route>
                         <Route path="/new" exact>
                             <NewGame/>
