@@ -5,7 +5,7 @@ const NavBar = () => {
 
     return (
         <Navbar bg="primary" expand="sm" variant="dark">
-            <Navbar.Brand href="/">Your Esports Bar</Navbar.Brand>
+            <Navbar.Brand href="/">Your (LoL) Esports Bar</Navbar.Brand>
             <Nav className="mr-0">
                 <Nav.Link className="nav-link" href="/">All games</Nav.Link>
                 <Nav.Link className="nav-link" href="/new">Add game</Nav.Link>
