@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../../stylesheets/NewGame.css";
-import validChampions from "./CheckChampionValid";
-import ChampionPicked from "./ChampionPicked";
+import validChampions from "../champions/CheckChampionValid";
+import ChampionPicked from "../champions/ChampionPicked";
 import {Button, Form, Col} from "react-bootstrap";
 import {useHttpClient} from "../hooks/http-hook";
 import InvalidChampionModal from "./GameAddition/InvalidChampionModal";

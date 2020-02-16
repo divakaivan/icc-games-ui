@@ -1,4 +1,4 @@
-import ChampionList from "./ChampionList";
+import ChampionList from "../champions/ChampionList";
 import YouTube from "react-youtube-embed";
 import React from "react";
 
