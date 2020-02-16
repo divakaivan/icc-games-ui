@@ -16,7 +16,7 @@ const TeamGames = props => {
 
                 setGameList(responseData.games);
             } catch (err) {
-                alert(error);
+                alert(err);
             }
         };
         fetchGames();

@@ -3,6 +3,7 @@ import "../../stylesheets/NewGame.css";
 import validChampions from "./CheckChampionValid";
 import ChampionPicked from "./ChampionPicked";
 import {Modal, Button} from "react-bootstrap";
+import {useHttpClient} from "../hooks/http-hook";
 
 const NewGame = () => {
     const [champion, setChampion] = useState("");
@@ -12,35 +13,38 @@ const NewGame = () => {
     const [ableToSubmit, setAbleToSubmit] = useState(false);
     const [blueTeam, setBlueTeam] = useState('');
     const [redTeam, setRedTeam] = useState('');
+    const [addedGameModal, setAddedGameModal] = useState(false);
+    const [fullChampList, setFullChampList] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (validChampions.includes(champion)) {
+        if (validChampions.includes(champion) && championsList.length !== 10) {
             setChampionsList([...championsList, champion]);
+            console.log(championsList)
+        } else if (championsList.length === 10) {
+            setFullChampList(true);
         } else {
             setInvalidChampion(true);
         }
     };
 
+    const {sendRequest, error, isLoading} = useHttpClient();
+
     const addGameChecker = e => {
         e.preventDefault();
         if (urlLink && redTeam && blueTeam && championsList.length === 10) {
             setAbleToSubmit(true);
-            fetch('http://localhost:5000/api/games/', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
+            sendRequest('http://localhost:5000/api/games/', 'POST',
+                JSON.stringify({
                     red: redTeam,
                     blue: blueTeam,
                     champions: championsList,
                     videoLink: urlLink
-                })
-            }).then(
-                alert('Game added successfully!')
-            )
+                }),
+                {'Content-Type': 'application/json'}).then(setAddedGameModal(true))
         }
     };
-
+//,
     return (
         <div className="text-white mt-5 container">
             <div className="row center-block align-items-center text-center">
@@ -52,11 +56,9 @@ const NewGame = () => {
                     {championsList[4] ? <ChampionPicked champion={championsList[4]}/> : (<h3>Support<br/></h3>)}
                 </div>
                 <div className="col-md-8">
-                    {invalidChampion ?
-                        (
                             <Modal animation={true} show={invalidChampion}>
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Modal heading</Modal.Title>
+                                    <Modal.Title>Invalid champions</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>You entered an invalid champion: <strong>{champion}</strong></Modal.Body>
                                 <Modal.Footer>
@@ -65,12 +67,20 @@ const NewGame = () => {
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
-                        )
-                        : null}
+                    <Modal animation={true} show={addedGameModal}>
+                        <Modal.Header>
+                            <Modal.Title>Game added</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Footer>
+                            <Button variant="secondary" href='http://localhost:3000/'>
+                                Home
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                     <h5>Input champions (left side from top to bottom then right side)</h5>
                     <input type="text" className="input-champ" value={champion} onChange={e=>setChampion(e.target.value)}/>
                     <br/>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>Add champion</Button>
+                    <Button variant="primary" type="submit" disabled={fullChampList} onClick={handleSubmit}>Add champion</Button>
                     <br/><br/>
                     <h5>YouTube link to the game</h5>
                     <input type="text" className="input-champ" value={urlLink} onChange={e=>setUrlLink(e.target.value)}/>

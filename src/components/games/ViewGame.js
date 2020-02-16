@@ -22,7 +22,7 @@ const ViewGame = props => {
 
                 setGame(responseData.game);
             } catch (err) {
-                alert(error);
+                alert(err);
             }
         };
         fetchGame();
@@ -33,10 +33,9 @@ const ViewGame = props => {
 
     const handleDelete = async () => {
         try {
-            await sendRequest(`http://localhost:5000/api/games/${gameId}`, 'DELETE')
-            setDeleteModal(true);
+            await sendRequest(`http://localhost:5000/api/games/${gameId}`, 'DELETE');
         } catch (err) {
-            alert(error);
+            alert(err);
         }
     };
 
@@ -81,12 +80,15 @@ const ViewGame = props => {
                 <div className="row">
                     <div className="col-md-6 ml-5 mt-5">
                         <Modal animation={true} show={deleteModal}>
-                            <Modal.Body>
-                                Game deleted successfully
-                            </Modal.Body>
+                            <Modal.Header>
+                                <Modal.Title>Are you sure?</Modal.Title>
+                            </Modal.Header>
                             <Modal.Footer>
-                                <Button variant="secondary" href='http://localhost:3000/'>
-                                    Go to home
+                                <Button variant="primary" onClick={handleDelete} href='http://localhost:3000/'>
+                                    Delete game
+                                </Button>
+                                <Button onClick={()=>setDeleteModal(false)} variant="primary">
+                                    Go back
                                 </Button>
                             </Modal.Footer>
                         </Modal>
@@ -95,7 +97,7 @@ const ViewGame = props => {
                 <div className="row">
                     <div className="col-md-6 ml-5 mt-5">
                         <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>
-                        <Button onClick={handleDelete} variant="primary ml-4">Delete game</Button>
+                        <Button onClick={()=>setDeleteModal(true)} variant="primary ml-4">Delete game</Button>
                         <Modal animation={true} show={showModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Edit champion info</Modal.Title>
