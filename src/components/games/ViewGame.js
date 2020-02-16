@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {useParams} from "react-router";
 import "../../stylesheets/ViewGame.css";
-import YouTube from "react-youtube-embed";
-import ChampionList from "./ChampionList";
 import {Button, Modal} from "react-bootstrap";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import {useHttpClient} from "../hooks/http-hook";
+import GameInfo from "./GameInfo";
 
 const ViewGame = props => {
     const gameId = useParams().gameId;
     const {sendRequest, error, isLoading} = useHttpClient();
 
-    const [showModal, setShowModal] = useState(false);
     const [game, setGame] = useState();
     const [deleteModal, setDeleteModal] = useState(false);
 
@@ -46,72 +44,38 @@ const ViewGame = props => {
                     <LoadingSpinner/>
                 </div>
             )}
-            {!isLoading && game && <div className="jumbotron view-game fluid align-content-center">
-                <div className="overlay">
-                    <div className="container text-center mt-5">
-                        <h1 className="blue">{game.blue}</h1> vs <h1 className="red">{game.red}</h1>
+            {!isLoading && game && blueChamps && redChamps &&
+            <div>
+                <div className="jumbotron view-game fluid align-content-center">
+                    <div className="overlay">
+                        <div className="container text-center mt-5">
+                            <h1 className="blue">{game.blue}</h1> vs <h1 className="red">{game.red}</h1>
+                        </div>
                     </div>
                 </div>
-            </div>}
-            {!isLoading && blueChamps && redChamps && <div className="text-white container">
-                <div className="row">
-                    <div className="my-auto align-middle col-md-1">
-                        <p className="font-weight-bold text-primary ml-5" style={{
-                            writingMode: "vertical-rl",
-                            textOrientation: "upright"
-                        }}>BLUE SIDE</p>
+                <div className="text-white container">
+                    <GameInfo videoId={videoId} blueChamps={blueChamps} redChamps={redChamps}/>
+                    <div className="row">
+                        <div className="col-md-6 ml-5 mt-5">
+                            <Modal animation={true} show={deleteModal}>
+                                <Modal.Header>
+                                    <Modal.Title>Are you sure?</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Footer>
+                                    <Button variant="primary" onClick={handleDelete} href='http://localhost:3000/'>
+                                        Delete game
+                                    </Button>
+                                    <Button onClick={() => setDeleteModal(false)} variant="primary">
+                                        Go back
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
                     </div>
-                    <div className="col-md-2 my-auto blue-side">
-                        <ChampionList side="left" champions={blueChamps}/>
-                    </div>
-                    <div className="col-md-6">
-                        <YouTube className="video" id={videoId}/>
-                    </div>
-                    <div className="col-md-2 my-auto text-right">
-                        <ChampionList side="right" champions={redChamps}/>
-                    </div>
-                    <div className="text-right col-md-1 my-auto">
-                        <p className="font-weight-bold text-danger" style={{
-                            writingMode: "vertical-rl",
-                            textOrientation: "upright"
-                        }}>RED SIDE</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6 ml-5 mt-5">
-                        <Modal animation={true} show={deleteModal}>
-                            <Modal.Header>
-                                <Modal.Title>Are you sure?</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Footer>
-                                <Button variant="primary" onClick={handleDelete} href='http://localhost:3000/'>
-                                    Delete game
-                                </Button>
-                                <Button onClick={()=>setDeleteModal(false)} variant="primary">
-                                    Go back
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6 ml-5 mt-5">
-                        <Button onClick={()=>setShowModal(true)} variant="primary">Update game info</Button>
-                        <Button onClick={()=>setDeleteModal(true)} variant="primary ml-4">Delete game</Button>
-                        <Modal animation={true} show={showModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Edit champion info</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                Update game info
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="primary" onClick={(e) => console.log(e)}>Submit</Button>
-                                <Button variant="primary" onClick={() => setShowModal(false)}>
-                                    Close
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
+                    <div className="row">
+                        <div className="col-md-6 ml-5 mt-5">
+                            <Button onClick={() => setDeleteModal(true)} variant="primary ml-4">Delete game</Button>
+                        </div>
                     </div>
                 </div>
             </div>}
