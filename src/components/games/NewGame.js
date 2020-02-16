@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import "../../stylesheets/NewGame.css";
 import validChampions from "./CheckChampionValid";
 import ChampionPicked from "./ChampionPicked";
-import {Modal, Button, Form, Col} from "react-bootstrap";
+import {Button, Form, Col} from "react-bootstrap";
 import {useHttpClient} from "../hooks/http-hook";
 import InvalidChampionModal from "./GameAddition/InvalidChampionModal";
 import GameAddedModal from "./GameAddition/GameAddedModal";
+import RoleImage from "../shared/RoleImage";
 
 const NewGame = () => {
     const [champion, setChampion] = useState("");
@@ -51,11 +52,11 @@ const NewGame = () => {
         <div className="text-white mt-5 container">
             <div className="row align-items-center text-center">
                 <div className="col-md-2">
-                    {championsList[0] ? <ChampionPicked champion={championsList[0]}/> : (<h3>Top lane<br/></h3>)}
-                    {championsList[1] ? <ChampionPicked champion={championsList[1]}/> : (<h3>Jungle<br/></h3>)}
-                    {championsList[2] ? <ChampionPicked champion={championsList[2]}/> : (<h3>Mid lane<br/></h3>)}
-                    {championsList[3] ? <ChampionPicked champion={championsList[3]}/> : (<h3>Bot lane<br/></h3>)}
-                    {championsList[4] ? <ChampionPicked champion={championsList[4]}/> : (<h3>Support<br/></h3>)}
+                    {championsList[0] ? <ChampionPicked champion={championsList[0]}/> : <RoleImage lane="top"/>}
+                    {championsList[1] ? <ChampionPicked champion={championsList[1]}/> : <RoleImage lane="jg"/>}
+                    {championsList[2] ? <ChampionPicked champion={championsList[2]}/> : <RoleImage lane="mid"/>}
+                    {championsList[3] ? <ChampionPicked champion={championsList[3]}/> : <RoleImage lane="bot"/>}
+                    {championsList[4] ? <ChampionPicked champion={championsList[4]}/> : <RoleImage lane="sup"/>}
                 </div>
                 <div className="col-md-8">
                     <InvalidChampionModal invalidChampion={invalidChampion} champion={champion} setInvalidChampion={setInvalidChampion}/>
@@ -88,11 +89,11 @@ const NewGame = () => {
                     <Button variant="primary" disabled={ableToSubmit} type="submit" onClick={addGameChecker}>Submit all information</Button>
                 </div>
                 <div className="col-md-2">
-                    {championsList[5] ? <ChampionPicked champion={championsList[5]}/> : (<h3>Top lane<br/></h3>)}
-                    {championsList[6] ? <ChampionPicked champion={championsList[6]}/> : (<h3>Jungle<br/></h3>)}
-                    {championsList[7] ? <ChampionPicked champion={championsList[7]}/> : (<h3>Mid lane<br/></h3>)}
-                    {championsList[8] ? <ChampionPicked champion={championsList[8]}/> : (<h3>Bot lane<br/></h3>)}
-                    {championsList[9] ? <ChampionPicked champion={championsList[9]}/> : (<h3>Support<br/></h3>)}
+                    {championsList[5] ? <ChampionPicked champion={championsList[5]}/> : <RoleImage lane="top"/>}
+                    {championsList[6] ? <ChampionPicked champion={championsList[6]}/> : <RoleImage lane="jg"/>}
+                    {championsList[7] ? <ChampionPicked champion={championsList[7]}/> : <RoleImage lane="mid"/>}
+                    {championsList[8] ? <ChampionPicked champion={championsList[8]}/> : <RoleImage lane="bot"/>}
+                    {championsList[9] ? <ChampionPicked champion={championsList[9]}/> : <RoleImage lane="sup"/>}
                 </div>
             </div>
         </div>
