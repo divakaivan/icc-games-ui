@@ -7,9 +7,17 @@
 
 .input-champ {
     box-shadow: none;
-    border-radius: 8px;
+    border-radius: 6px;
     outline: none;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    width: 50%;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.side {
+    box-shadow: none;
+    border-radius: 6px;
+    outline: none;
+    width: 10%;
+    border: 2px solid black;
+    box-sizing: border-box;
 }
