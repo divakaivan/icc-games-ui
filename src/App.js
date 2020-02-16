@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import NavBar from "./components/shared/NavBar";
 import NewGame from "./components/games/NewGame";

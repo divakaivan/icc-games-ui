@@ -14,7 +14,7 @@ const AllGames = () => {
 
                 setGameList(responseData.games);
             } catch (err) {
-                alert(err);
+                console.log(err);
             }
         };
         fetchGames();
