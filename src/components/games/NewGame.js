@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import "../../stylesheets/NewGame.css";
 import validChampions from "./CheckChampionValid";
 import ChampionPicked from "./ChampionPicked";
-import {Modal, Button, Form, Col, Row} from "react-bootstrap";
+import {Modal, Button, Form, Col} from "react-bootstrap";
 import {useHttpClient} from "../hooks/http-hook";
+import InvalidChampionModal from "./GameAddition/InvalidChampionModal";
+import GameAddedModal from "./GameAddition/GameAddedModal";
 
 const NewGame = () => {
     const [champion, setChampion] = useState("");
@@ -56,27 +58,8 @@ const NewGame = () => {
                     {championsList[4] ? <ChampionPicked champion={championsList[4]}/> : (<h3>Support<br/></h3>)}
                 </div>
                 <div className="col-md-8">
-                            <Modal animation={true} show={invalidChampion}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Invalid champions</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>You entered an invalid champion: <strong>{champion}</strong></Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={() => setInvalidChampion(false)}>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                    <Modal animation={true} show={addedGameModal}>
-                        <Modal.Header>
-                            <Modal.Title>Game added</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Footer>
-                            <Button variant="secondary" href='http://localhost:3000/'>
-                                Home
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <InvalidChampionModal invalidChampion={invalidChampion} champion={champion} setInvalidChampion={setInvalidChampion}/>
+                    <GameAddedModal addedGameModal={addedGameModal}/>
                     <Form>
                         <Form.Row>
                             <Form.Group as={Col}>
