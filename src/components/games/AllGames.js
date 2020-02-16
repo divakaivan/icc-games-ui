@@ -3,7 +3,10 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 import Cards from "../cards/Cards";
 import {useHttpClient} from "../hooks/http-hook";
 
-
+/**
+ * This component represents the All Games page on the app.
+ * It has a Card for each game and there are 3 per row.
+ */
 const AllGames = () => {
     const [gameList, setGameList] = useState();
     const {isLoading, error, sendRequest} = useHttpClient();

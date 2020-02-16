@@ -1,5 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
+/**
+ * Component that gets the picture of a role from my GitHub repo.
+ */
 const RoleImage = props => {
     return (
         <div>
@@ -10,3 +14,10 @@ const RoleImage = props => {
 };
 
 export default RoleImage;
+
+RoleImage.propTypes = {
+    /**
+     * Options: top, jg, mid, bot, sup. Depending on the passed string. Returns a square picture of the lane.
+     */
+    lane: PropTypes.string.isRequired
+};

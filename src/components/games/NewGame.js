@@ -8,6 +8,13 @@ import InvalidChampionModal from "./GameAddition/InvalidChampionModal";
 import GameAddedModal from "./GameAddition/GameAddedModal";
 import RoleImage from "../shared/RoleImage";
 
+/**
+ * This component contains the functionality in the Add Game page of the app.
+ * The component:
+ *      1) handles the submit of each champion added in the Champion select part.
+ *      2) Validation for whether more champions can be added and also whether the user has filled all the required info.
+ *      3) Handles submission of the new game to the database.
+ */
 const NewGame = () => {
     const [champion, setChampion] = useState("");
     const [championsList, setChampionsList] = useState([]);

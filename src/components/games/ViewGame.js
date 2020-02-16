@@ -6,7 +6,14 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 import {useHttpClient} from "../hooks/http-hook";
 import GameInfo from "./GameInfo";
 
-const ViewGame = props => {
+/**
+ * This component handles the functionality on the View Game button and page of each game.
+ *      1) It fetches the game from the database.
+ *      2) Extract the blue and red side champions and also the video Id that was passed when the game was added.
+ *      3) Handles the option to delete the game at which the user is currently looking.
+ *      4) TODO: add Update Game info functionality
+ */
+const ViewGame = () => {
     const gameId = useParams().gameId;
     const {sendRequest, error, isLoading} = useHttpClient();
 

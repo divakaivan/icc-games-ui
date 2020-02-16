@@ -4,7 +4,15 @@ import Cards from "../cards/Cards";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import {useHttpClient} from "../hooks/http-hook";
 
-const TeamGames = props => {
+/**
+ * This component shows the games for a specific team. At the moment I have only two teams (for development) G2 and FNC.
+ * The component fetches all games from the database and then this list of games is filtered for games where the team
+ * has played.
+ *
+ * There might be an improvement. Because if we have a lot of games, fetching all games every time and then filtering it
+ * could be costly.
+ */
+const TeamGames = () => {
     const teamId = useParams().teamId;
     const [gameList, setGameList] = useState();
     const {isLoading, error, sendRequest} = useHttpClient();

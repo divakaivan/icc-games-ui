@@ -6,8 +6,9 @@ import TeamGames from "./components/games/TeamGames";
 import ViewGame from "./components/games/ViewGame";
 import AllGames from "./components/games/AllGames";
 
-const App = () => {
 
+
+const App = () => {
 
     return (
             <Router>

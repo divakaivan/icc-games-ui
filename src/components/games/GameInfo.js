@@ -1,7 +1,14 @@
 import ChampionList from "../champions/ChampionList";
 import YouTube from "react-youtube-embed";
 import React from "react";
+import PropTypes from "prop-types";
 
+/**
+ * This component is used in the View Game info page. It shows:
+ *      1) Blue side champions listed on the left side
+ *      2) Red side champions listed on the right side
+ *      3) Video URL to the game on youtube in the middle.
+ */
 const GameInfo = props => {
     return (
         <div className="row">
@@ -31,3 +38,19 @@ const GameInfo = props => {
 };
 
 export default GameInfo;
+
+GameInfo.propTypes = {
+    /**
+     * Blue side team champions.
+     */
+    blueChamps: PropTypes.array.isRequired,
+    /**
+     * Red side team champions.
+     */
+    redChamps: PropTypes.array.isRequired,
+    /**
+     * The id of the video url passed when the game has been added. The id should be extracted in the parent component.
+     * The id is what is after watch?v= and is 11 characters long.
+     */
+    videoId: PropTypes.string.isRequired
+};

@@ -1,6 +1,9 @@
 import React from "react";
 import {Navbar, Nav} from "react-bootstrap";
 
+/**
+ * Navigation bar component at the top of the app. Contains hrefs to different pages.
+ */
 const NavBar = () => {
 
     return (

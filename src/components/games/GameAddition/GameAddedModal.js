@@ -1,6 +1,11 @@
 import {Button, Modal} from "react-bootstrap";
 import React from "react";
+import PropTypes from "prop-types";
 
+/**
+ * This component shows a modal with a successful message after a game has been added successfully
+ * through the Add Game page.
+ */
 const GameAddedModal = props => {
 
     return (
@@ -18,3 +23,10 @@ const GameAddedModal = props => {
 };
 
 export default GameAddedModal;
+
+GameAddedModal.propTypes = {
+    /**
+     * A boolean whether to show or not the modal.
+     */
+    addedGameModal: PropTypes.bool.isRequired
+};
