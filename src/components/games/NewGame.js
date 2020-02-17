@@ -79,15 +79,15 @@ const NewGame = () => {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Group as={Col} controlId="blueSide">
                                 <Form.Label>Blue side</Form.Label>
                                 <Form.Control type='text' value={blueTeam} onChange={e=>setBlueTeam(e.target.value)}/>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Group as={Col} controlId="redSide">
                                 <Form.Label>Red side</Form.Label>
                                 <Form.Control type='text' value={redTeam} onChange={e=>setRedTeam(e.target.value)}/>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Group as={Col} controlId="youtubeLink">
                                 <Form.Label>Youtube link</Form.Label>
                                 <Form.Control type='text' value={urlLink} onChange={e=>setUrlLink(e.target.value)}/>
                             </Form.Group>
