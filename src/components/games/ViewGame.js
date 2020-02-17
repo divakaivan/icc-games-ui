@@ -40,7 +40,7 @@ const ViewGame = () => {
         try {
             await sendRequest(`http://localhost:5000/api/games/${gameId}`, 'DELETE');
         } catch (err) {
-            alert(err);
+
         }
     };
 
