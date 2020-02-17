@@ -3,6 +3,8 @@ import {useParams} from 'react-router-dom';
 import Cards from "../cards/Cards";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import {useHttpClient} from "../hooks/http-hook";
+import {Jumbotron, Button} from "react-bootstrap";
+import NoGames from "./NoGames";
 
 /**
  * This component shows the games for a specific team. At the moment I have only two teams (for development) G2 and FNC.
@@ -15,6 +17,7 @@ import {useHttpClient} from "../hooks/http-hook";
 const TeamGames = () => {
     const teamId = useParams().teamId;
     const [gameList, setGameList] = useState();
+    const [noGames, setNoGames] = useState(false);
     const {isLoading, error, sendRequest} = useHttpClient();
 
     useEffect(() => {
@@ -25,6 +28,7 @@ const TeamGames = () => {
                 setGameList(responseData.games);
             } catch (err) {
                 alert(err);
+                setNoGames(true);
             }
         };
         fetchGames();
@@ -38,6 +42,7 @@ const TeamGames = () => {
                     <LoadingSpinner/>
                 </div>
             )}
+            {noGames && <NoGames teamId={teamId}/>}
             {!isLoading && loadedGames && <Cards games={loadedGames}/>}
         </React.Fragment>
     )

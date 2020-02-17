@@ -69,7 +69,7 @@ const ViewGame = () => {
                                     <Modal.Title>Are you sure?</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Footer>
-                                    <Button variant="primary" onClick={handleDelete} href='http://localhost:3000/'>
+                                    <Button variant="primary" onClick={handleDelete} href='/'>
                                         Delete game
                                     </Button>
                                     <Button onClick={() => setDeleteModal(false)} variant="primary">
