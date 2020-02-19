@@ -13,7 +13,7 @@ const AllGames = () => {
     useEffect(()=>{
         const fetchGames = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/api/games/');
+                const responseData = await sendRequest('https://esports-bar.herokuapp.com/api/games/');
 
                 setGameList(responseData.games);
             } catch (err) {

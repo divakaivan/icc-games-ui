@@ -14,7 +14,7 @@ const GameAddedModal = props => {
                 <Modal.Title>Game added</Modal.Title>
             </Modal.Header>
             <Modal.Footer>
-                <Button variant="secondary" href='http://localhost:3000/'>
+                <Button variant="secondary" href='https://esports-bar.firebaseapp.com/'>
                     Home
                 </Button>
             </Modal.Footer>

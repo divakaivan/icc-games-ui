@@ -42,9 +42,10 @@ const NewGame = () => {
 
     const addGameChecker = e => {
         e.preventDefault();
-        if (urlLink && redTeam && blueTeam && championsList.length === 10) {
+        const validUrl = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        if (urlLink.match(validUrl) && redTeam && blueTeam && championsList.length === 10) {
             setAbleToSubmit(true);
-            sendRequest('http://localhost:5000/api/games/', 'POST',
+            sendRequest('https://esports-bar.herokuapp.com/api/games/', 'POST',
                 JSON.stringify({
                     red: redTeam,
                     blue: blueTeam,

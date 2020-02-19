@@ -23,7 +23,7 @@ const ViewGame = () => {
     useEffect(() => {
         const fetchGame = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/games/${gameId}`);
+                const responseData = await sendRequest(`https://esports-bar.herokuapp.com/api/games/${gameId}`);
 
                 setGame(responseData.game);
             } catch (err) {
@@ -38,7 +38,7 @@ const ViewGame = () => {
 
     const handleDelete = async () => {
         try {
-            await sendRequest(`http://localhost:5000/api/games/${gameId}`, 'DELETE');
+            await sendRequest(`https://esports-bar.herokuapp.com/api/games/${gameId}`, 'DELETE');
         } catch (err) {
 
         }
